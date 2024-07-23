@@ -18,9 +18,6 @@ export function LinkContainer() {
     console.log(value);
   };
 
-  useEffect(() => {
-    console.log(selectedLinkPlatform)
-  }, [selectedLinkPlatform])
 
   return (
     <section className="bg-[#fafafa] p-5 flex flex-col gap-3">
