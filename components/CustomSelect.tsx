@@ -9,16 +9,11 @@ export default function CustomSelect({
   header,
   headerIcon,
   setHeader,
+  onOptionClick,
 }: SelectProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handleOptionClick = (value: any) => {
-    setHeader(value);
-    console.log(value, header);
-    setDropdownOpen(false);
-  };
 
   const handleOutsideClick = (event: MouseEvent) => {
     if (
@@ -28,6 +23,7 @@ export default function CustomSelect({
       setDropdownOpen(false);
     }
   };
+  
   useEffect(() => {
     window.addEventListener("click", handleOutsideClick);
     return () => {
@@ -61,8 +57,8 @@ export default function CustomSelect({
             <div
               key={index}
               onClick={() => {
-                handleOptionClick(option.name);
-                setDropdownOpen((prevState) => !prevState);
+                onOptionClick(option);
+                setDropdownOpen(false);
               }}
               className="custom-option last:border-b-0 py-2 text-grey"
             >

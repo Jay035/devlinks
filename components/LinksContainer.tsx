@@ -13,6 +13,11 @@ export function LinkContainer() {
     name: "GitHub",
   });
 
+  const onOptionClick = (value: LinkPlatformProps) => {
+    setSelectedLinkPlatform(value);
+    console.log(value);
+  };
+
   useEffect(() => {
     console.log(selectedLinkPlatform)
   }, [selectedLinkPlatform])
@@ -37,8 +42,8 @@ export function LinkContainer() {
         <CustomSelect
           options={LinkPlatforms!}
           header={selectedLinkPlatform?.name}
-          setHeader={setSelectedLinkPlatform}
           headerIcon={selectedLinkPlatform?.icon}
+          onOptionClick={onOptionClick}
         />
       </div>
       <CustomInput

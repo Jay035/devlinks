@@ -26,8 +26,9 @@ interface NavItemProps {
 interface SelectProps {
   header: string;
   headerIcon?: string;
-  setHeader: (x: LinkPlatformProps) => void;
+  setHeader?: (x: LinkPlatformProps) => void;
   options: LinkPlatformProps[];
+  onOptionClick: (value: LinkPlatformProps) => void
 }
 
 interface SelectOptionProps {
