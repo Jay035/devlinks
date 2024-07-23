@@ -26,7 +26,7 @@ interface NavItemProps {
 interface SelectProps {
   header: string;
   headerIcon?: string;
-  setHeader: (x: string) => void;
+  setHeader: (x: LinkPlatformProps) => void;
   options: LinkPlatformProps[];
 }
 
@@ -46,7 +46,7 @@ interface GlobalProps {
   loading: boolean;
 
   selectedLinkPlatform?: LinkPlatformProps;
-  setSelectedLinkPlatform?: Dispatch<SetStateAction<LinkPlatformProps>>;
+  setSelectedLinkPlatform?: (x: LinkPlatformProps) => void;
   userLinks?: LinksProps[];
   LinkPlatforms?: LinkPlatformProps[];
   addLink?: (x: LinkProps) => void;

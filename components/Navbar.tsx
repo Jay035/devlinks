@@ -3,8 +3,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-
-
 export function Navbar() {
   const [menuShown, setMenuShown] = useState<boolean>(false);
   const path = usePathname();
@@ -28,6 +26,7 @@ export function Navbar() {
   return (
     <nav className="px-6 py-4 flex justify-between items-center">
       <Link href="/">
+        {/* visible on mobile only  */}
         <Image
           src="/icons/logo.svg"
           width="0"
@@ -35,6 +34,7 @@ export function Navbar() {
           className="w-fit sm:hidden"
           alt="logo"
         />
+        {/* visible on tablet and larger screens  */}
         <Image
           src="/icons/logo-group.svg"
           width="0"

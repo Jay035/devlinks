@@ -47,7 +47,7 @@ export default function Home() {
         </button>
       </section>
       {linkPresent ? (
-        <section>
+        <section className="mt-6">
           <LinkContainer  />
         </section>
       ) : (

@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 type Props = {
-  value: string;
+  value: string | undefined;
   onchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   iconSrc: string;
   type: string;

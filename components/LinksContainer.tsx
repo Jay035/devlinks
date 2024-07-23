@@ -1,24 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CustomSelect from "./CustomSelect";
 import { useGlobalProvider } from "@/context/GlobalProvider";
-
+import Image from "next/image";
+import { CustomInput } from "./CustomInput";
 
 export function LinkContainer() {
-  const { LinkPlatforms, selectedLinkPlatform, setSelectedLinkPlatform } = useGlobalProvider();
-  
+  const { LinkPlatforms } =
+    useGlobalProvider();
+  const [link, setLink] = useState("");
+  const [selectedLinkPlatform, setSelectedLinkPlatform] = useState<LinkPlatformProps>({
+    icon: "/icons/github.svg",
+    name: "GitHub",
+  });
+
+  useEffect(() => {
+    console.log(selectedLinkPlatform)
+  }, [selectedLinkPlatform])
+
   return (
     <section className="bg-[#fafafa] p-5 flex flex-col gap-3">
-      <div className="flex justify-between gap-4 items-center">
+      <div className="flex justify-between text-grey gap-4 items-center">
         <div className="flex items-center gap-2">
-
-        <h1>Link #</h1>
+          <Image
+            src="/icons/drag.svg"
+            width="0"
+            height="0"
+            className="w-fit"
+            alt="logo"
+          />
+          <h1 className="font-bold">Link #</h1>
         </div>
-        <span>Remove</span>
+        <span className="">Remove</span>
       </div>
       <div className="">
-        <p>Platform</p>
-        <CustomSelect options={LinkPlatforms!} header={selectedLinkPlatform?.name!} setHeader={setSelectedLinkPlatform!} />
+        <p className="mb-1 text-xs text-dark-grey">Platform</p>
+        <CustomSelect
+          options={LinkPlatforms!}
+          header={selectedLinkPlatform?.name}
+          setHeader={setSelectedLinkPlatform}
+          headerIcon={selectedLinkPlatform?.icon}
+        />
       </div>
+      <CustomInput
+        value={link}
+        placeholder="https://www.github.com/benwright"
+        label="Link"
+        id={`${selectedLinkPlatform?.name} link`}
+        type="website"
+        onchange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setLink(e.target.value)
+        }
+        iconSrc="/icons/link.svg"
+        altText="link icon"
+      />
     </section>
   );
 }

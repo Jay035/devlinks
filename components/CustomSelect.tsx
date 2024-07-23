@@ -16,6 +16,7 @@ export default function CustomSelect({
 
   const handleOptionClick = (value: any) => {
     setHeader(value);
+    console.log(value, header);
     setDropdownOpen(false);
   };
 
@@ -35,48 +36,41 @@ export default function CustomSelect({
   }, []);
 
   return (
-    <div className="p-[0.07rem] w-full bg-gradient-to-b from-[#51525C] to-[#414149] rounded-[0.625rem]">
-      <div
-        className="custom-dropdown"
-        onClick={() => {
-          setDropdownOpen((prevState) => !prevState);
-        }}
-        ref={dropdownRef}
-      >
-        <div
-          className={`dropdown-header flex items-center gap-1 ${
-            header === "Select router exchange" && "text-[#A0A0AB]"
-          }`}
-          id=""
-        >
-          {headerIcon && (
-            <Image
-              width="0"
-              height="0"
-              className="w-fit"
-              src={headerIcon}
-              alt={`${header} icon`}
-            />
-          )}
-          <p className="truncate">{header}</p>
-        </div>
-        {dropdownOpen && (
-          <div className="dropdown-options flex flex-col gap-2">
-            {options?.map((option: LinkPlatformProps, index: number) => (
-              <div
-                key={index}
-                onClick={() => {
-                  handleOptionClick(option.name);
-                  setDropdownOpen((prevState) => !prevState);
-                }}
-                className="custom-option last:border-b-0 bg-[#3F3F46] py-2 tracking-[-0.00875rem] text-[0.875rem] text-[#A0A0AB]"
-              >
-                {option.name}
-              </div>
-            ))}
-          </div>
+    <div
+      className="custom-dropdown"
+      onClick={() => {
+        setDropdownOpen((prevState) => !prevState);
+      }}
+      ref={dropdownRef}
+    >
+      <div className={`dropdown-header flex items-center gap-1 `} id="">
+        {headerIcon && (
+          <Image
+            width="0"
+            height="0"
+            className="w-fit"
+            src={headerIcon}
+            alt={`${header} icon`}
+          />
         )}
+        <p className="truncate">{header}</p>
       </div>
+      {dropdownOpen && (
+        <div className="dropdown-options flex flex-col gap-2">
+          {options?.map((option: LinkPlatformProps, index: number) => (
+            <div
+              key={index}
+              onClick={() => {
+                handleOptionClick(option.name);
+                setDropdownOpen((prevState) => !prevState);
+              }}
+              className="custom-option last:border-b-0 py-2 text-grey"
+            >
+              {option.name}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
