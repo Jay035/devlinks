@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 export default function CustomSelect({
   options,
   header,
+  headerIcon,
   setHeader,
 }: SelectProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -44,61 +45,33 @@ export default function CustomSelect({
       >
         <div
           className={`dropdown-header flex items-center gap-1 ${
-            pathname === "/bridge" && "gap-2"
-          } ${header === "Select router exchange" && "text-[#A0A0AB]"}`}
-          id="currency"
+            header === "Select router exchange" && "text-[#A0A0AB]"
+          }`}
+          id=""
         >
-          {pathname !== "/bridge" &&
-            header !== "Select" &&
-            header !== "Select router exchange" && (
-              <Image
-                width={20}
-                height={20}
-                src="/icons/check.svg"
-                alt="check icon"
-              />
-            )}
-          {pathname === "/bridge" && header === "SLM" && (
+          {headerIcon && (
             <Image
               width="0"
               height="0"
-              className="w-[2.125rem] h-[2.125rem]"
-              src="/icons/logo-frame.svg"
-              alt="check icon"
-            />
-          )}
-          {pathname === "/bridge" && header === "BSC Chain" && (
-            <Image
-              width="0"
-              height="0"
-              className="w-[2.125rem] h-[2.125rem]"
-              src="/icons/bsc-chain.svg"
-              alt="check icon"
-            />
-          )}
-          {pathname === "/bridge" && header === "Fantom" && (
-            <Image
-              width="0"
-              height="0"
-              className="w-[2.125rem] h-[2.125rem]"
-              src="/icons/fantom.svg"
-              alt="check icon"
+              className="w-fit"
+              src={headerIcon}
+              alt={`${header} icon`}
             />
           )}
           <p className="truncate">{header}</p>
         </div>
         {dropdownOpen && (
           <div className="dropdown-options flex flex-col gap-2">
-            {options?.map((option: SelectOptionProps, index: number) => (
+            {options?.map((option: LinkPlatformProps, index: number) => (
               <div
                 key={index}
                 onClick={() => {
-                  handleOptionClick(option.value);
+                  handleOptionClick(option.name);
                   setDropdownOpen((prevState) => !prevState);
                 }}
                 className="custom-option last:border-b-0 bg-[#3F3F46] py-2 tracking-[-0.00875rem] text-[0.875rem] text-[#A0A0AB]"
               >
-                {option.value}
+                {option.name}
               </div>
             ))}
           </div>

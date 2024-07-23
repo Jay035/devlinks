@@ -32,8 +32,80 @@ type Props = {
 export function GlobalProvider({ children }: Props) {
   const router = useRouter();
   const [error, setError] = useState("");
+  const [selectedLinkPlatform, setSelectedLinkPlatform] = useState<LinkPlatformProps>({
+    name: "GitHub",
+    icon: "/icons/github.svg",
+  });
+  const [userLinks, setUserLinks] = useState<LinksProps[]>([]);
 
-  
+  const LinkPlatforms = [
+    {
+      icon: "/icons/github.svg",
+      platform: "GitHub",
+    },
+    {
+      icon: "/icons/youtube.svg",
+      platform: "YouTube",
+    },
+    {
+      icon: "/icons/frontend-mentor.svg",
+      platform: "Frontend Mentor",
+    },
+    {
+      icon: "/icons/twitter.svg",
+      platform: "Twitter",
+    },
+    {
+      icon: "/icons/linkedin.svg",
+      platform: "LinkedIn",
+    },
+    {
+      icon: "/icons/facebook.svg",
+      platform: "Facebook",
+    },
+    {
+      icon: "/icons/twitch.svg",
+      platform: "Twitch",
+    },
+    {
+      icon: "/icons/devto.svg",
+      platform: "Dev.to",
+    },
+    {
+      icon: "/icons/codewars.svg",
+      platform: "Codewars",
+    },
+    {
+      icon: "/icons/codepen.svg",
+      platform: "Codepen",
+    },
+    {
+      icon: "/icons/freecodecamp.svg",
+      platform: "FreeCodeCamp",
+    },
+    {
+      icon: "/icons/gitlab.svg",
+      platform: "GitLab",
+    },
+    {
+      icon: "/icons/hashnode.svg",
+      platform: "Hashnode",
+    },
+    {
+      icon: "/icons/stackoverflow.svg",
+      platform: "Stack Overflow",
+    },
+  ];
+
+  const addLink = ({ id, bgColor, icon, link, platform }: LinksProps) => {
+    const newLink: LinksProps = { id, bgColor, icon, link, platform };
+    setUserLinks([...userLinks, newLink]);
+  };
+
+  const deleteLink = (id: number) => {
+    setUserLinks(userLinks.filter((link) => link.id !== id));
+  };
+
   // AUTHENTCATION
   const [isUserLoggedIn, setIsUserLoggedIn]: any = useState(false);
   const [user, setUser]: any = useState(auth?.currentUser);
@@ -84,6 +156,12 @@ export function GlobalProvider({ children }: Props) {
     setLoading,
     setError,
     setUser,
+    userLinks,
+    addLink,
+    deleteLink,
+    LinkPlatforms,
+    selectedLinkPlatform,
+    setSelectedLinkPlatform,
   };
 
   return (

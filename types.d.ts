@@ -1,7 +1,14 @@
-interface LinkProps {
+interface LinksProps {
   id: number;
-  platform: string;
+  platform: LinkPlatformProps
   link: string;
+  bgColor: string;
+  icon: string;
+}
+
+interface LinkPlatformProps {
+  name: string;
+  icon: string;
 }
 
 interface SaveBtnProps {
@@ -18,8 +25,9 @@ interface NavItemProps {
 
 interface SelectProps {
   header: string;
+  headerIcon?: string;
   setHeader: (x: string) => void;
-  options: SelectOptionProps[];
+  options: LinkPlatformProps[];
 }
 
 interface SelectOptionProps {
@@ -36,4 +44,11 @@ interface GlobalProps {
   error: string;
   isUserLoggedIn: boolean;
   loading: boolean;
+
+  selectedLinkPlatform?: LinkPlatformProps;
+  setSelectedLinkPlatform?: (x: string, y: string) => void;
+  userLinks?: linksProps[];
+  LinkPlatforms?: LinkPlatformProps[];
+  addLink?: (x: LinkProps) => void;
+  deleteLink?: (id: number) => void;
 }

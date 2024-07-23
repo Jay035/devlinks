@@ -1,12 +1,13 @@
 "use client";
 
 import { GetStarted } from "@/components/GetStarted";
+import { LinkContainer } from "@/components/LinksContainer";
 import { SaveBtn } from "@/components/SaveBtn";
 import { useState } from "react";
 
 export default function Home() {
   const [linkPresent, setLinkPresent] = useState<boolean>(false);
-
+  
   const addLink = () => {
     setLinkPresent(true);
   };
@@ -17,8 +18,15 @@ export default function Home() {
       platform: "GitHub",
       bgColor: "",
       icon: "",
-      link: ""
-    }
+      link: "",
+    },
+    {
+      id: 2,
+      platform: "YouTube",
+      bgColor: "",
+      icon: "",
+      link: "",
+    },
   ];
 
   return (
@@ -38,10 +46,15 @@ export default function Home() {
           + Add new link
         </button>
       </section>
-      {linkPresent ? <p>Link</p> : <GetStarted />}
-      {/* <div className="w-full"> */}
-        <SaveBtn linkPresent={linkPresent} />
-      {/* </div> */}
+      {linkPresent ? (
+        <section>
+          <LinkContainer  />
+        </section>
+      ) : (
+        <GetStarted />
+      )}
+
+      <SaveBtn linkPresent={linkPresent} />
     </main>
   );
 }
