@@ -3,13 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-type NavItemProps = {
-  id: number;
-  text: string;
-  icon: string;
-  activeIcon: string;
-  route: string;
-};
+
 
 export function Navbar() {
   const [menuShown, setMenuShown] = useState<boolean>(false);

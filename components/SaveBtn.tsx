@@ -1,6 +1,3 @@
-interface SaveBtnProps {
-  linkPresent: boolean;
-}
 
 export function SaveBtn({ linkPresent }: SaveBtnProps) {
   return (
