@@ -33,67 +33,67 @@ export function GlobalProvider({ children }: Props) {
   const router = useRouter();
   const [error, setError] = useState("");
   const [selectedLinkPlatform, setSelectedLinkPlatform] = useState<LinkPlatformProps>({
-    name: "GitHub",
     icon: "/icons/github.svg",
+    name: "GitHub",
   });
   const [userLinks, setUserLinks] = useState<LinksProps[]>([]);
 
   const LinkPlatforms = [
     {
       icon: "/icons/github.svg",
-      platform: "GitHub",
+      name: "GitHub",
     },
     {
       icon: "/icons/youtube.svg",
-      platform: "YouTube",
+      name: "YouTube",
     },
     {
       icon: "/icons/frontend-mentor.svg",
-      platform: "Frontend Mentor",
+      name: "Frontend Mentor",
     },
     {
       icon: "/icons/twitter.svg",
-      platform: "Twitter",
+      name: "Twitter",
     },
     {
       icon: "/icons/linkedin.svg",
-      platform: "LinkedIn",
+      name: "LinkedIn",
     },
     {
       icon: "/icons/facebook.svg",
-      platform: "Facebook",
+      name: "Facebook",
     },
     {
       icon: "/icons/twitch.svg",
-      platform: "Twitch",
+      name: "Twitch",
     },
     {
       icon: "/icons/devto.svg",
-      platform: "Dev.to",
+      name: "Dev.to",
     },
     {
       icon: "/icons/codewars.svg",
-      platform: "Codewars",
+      name: "Codewars",
     },
     {
       icon: "/icons/codepen.svg",
-      platform: "Codepen",
+      name: "Codepen",
     },
     {
       icon: "/icons/freecodecamp.svg",
-      platform: "FreeCodeCamp",
+      name: "FreeCodeCamp",
     },
     {
       icon: "/icons/gitlab.svg",
-      platform: "GitLab",
+      name: "GitLab",
     },
     {
       icon: "/icons/hashnode.svg",
-      platform: "Hashnode",
+      name: "Hashnode",
     },
     {
       icon: "/icons/stackoverflow.svg",
-      platform: "Stack Overflow",
+      name: "Stack Overflow",
     },
   ];
 

@@ -1,6 +1,6 @@
 interface LinksProps {
   id: number;
-  platform: LinkPlatformProps
+  platform: LinkPlatformProps;
   link: string;
   bgColor: string;
   icon: string;
@@ -46,8 +46,8 @@ interface GlobalProps {
   loading: boolean;
 
   selectedLinkPlatform?: LinkPlatformProps;
-  setSelectedLinkPlatform?: (x: string, y: string) => void;
-  userLinks?: linksProps[];
+  setSelectedLinkPlatform?: Dispatch<SetStateAction<LinkPlatformProps>>;
+  userLinks?: LinksProps[];
   LinkPlatforms?: LinkPlatformProps[];
   addLink?: (x: LinkProps) => void;
   deleteLink?: (id: number) => void;
