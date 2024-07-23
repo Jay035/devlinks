@@ -15,3 +15,14 @@ interface NavItemProps {
   activeIcon: string;
   route: string;
 }
+
+
+interface GlobalProps{
+  user: {
+    displayName: string,
+    email: string,
+  },
+  error: string,
+  isUserLoggedIn: boolean,
+  loading: boolean,
+}

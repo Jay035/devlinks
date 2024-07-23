@@ -19,11 +19,10 @@ export const GlobalContext = createContext<GlobalProps>({
     displayName: "",
     email: "",
   },
-  name: "",
+  // name: "",
   error: "",
   isUserLoggedIn: false,
   loading: false,
-  router: "",
 });
 
 type Props = {
@@ -34,29 +33,7 @@ export function GlobalProvider({ children }: Props) {
   const router = useRouter();
   const [error, setError] = useState("");
 
-  // DOWNLOAD COMPONENT
-  const [downloadCSVLink, setDownloadCSVLink] = useState("");
-  const [downloadButtonClicked, setDownloadButtonClicked] = useState(false);
-  const [subscribeButtonClicked, setSubscribeButtonClicked] = useState(false);
-
-  // MODAL
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [modalHeader, setModalHeader] = useState<string>("");
-
-  function toggleModal() {
-    setShowModal((prevState) => !prevState);
-  }
-
-  // MAP
-  const [userAddress, setUserAddress] = useState("");
-  const [selectedHospitalInfo, setSelectedHospitalInfo] = useState<MarkerType>(
-    {} as MarkerType
-  );
-  const [nearbyHospitals, setNearbyHospitals] = useState<MarkerType[]>();
-  const [destinationHospital, setDestinationHospital] =
-    useState<LatLngLiteral>();
-  const [directions, setDirections] = useState<DirectionsResult>();
-
+  
   // AUTHENTCATION
   const [isUserLoggedIn, setIsUserLoggedIn]: any = useState(false);
   const [user, setUser]: any = useState(auth?.currentUser);
@@ -68,7 +45,7 @@ export function GlobalProvider({ children }: Props) {
       await signInWithPopup(auth, provider);
       setIsUserLoggedIn(true);
       setUser(auth?.currentUser);
-      router.push("/dashboard");
+      router.push("/");
     } catch (err: any) {
       console.log(err.message);
       setError(err.message);
@@ -98,10 +75,7 @@ export function GlobalProvider({ children }: Props) {
   }, []);
 
   const value = {
-    router,
     user,
-    userAddress,
-    setUserAddress,
     isUserLoggedIn,
     logOut,
     signInWithGoogle,
@@ -110,26 +84,6 @@ export function GlobalProvider({ children }: Props) {
     setLoading,
     setError,
     setUser,
-    downloadCSVLink,
-    setDownloadCSVLink,
-    downloadButtonClicked,
-    setDownloadButtonClicked,
-    subscribeButtonClicked, setSubscribeButtonClicked,
-
-    // MAP props
-    selectedHospitalInfo,
-    setSelectedHospitalInfo,
-    toggleModal,
-    showModal,
-    modalHeader,
-    setModalHeader,
-    setShowModal,
-    destinationHospital,
-    setDestinationHospital,
-    directions,
-    setDirections,
-    nearbyHospitals,
-    setNearbyHospitals,
   };
 
   return (
