@@ -33,6 +33,7 @@ export function CustomInput({ value, onchange, label, iconSrc, altText, type, id
           type={type}
           className="p-0 border-none outline-none w-full bg-transparent"
           placeholder={placeholder}
+          required
         />
       </div>
     </section>
