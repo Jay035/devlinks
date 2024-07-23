@@ -16,13 +16,24 @@ interface NavItemProps {
   route: string;
 }
 
+interface SelectProps {
+  header: string;
+  setHeader: (x: string) => void;
+  options: SelectOptionProps[];
+}
 
-interface GlobalProps{
+interface SelectOptionProps {
+  value: string;
+  label: string;
+  onSelect: (e: string) => void;
+}
+
+interface GlobalProps {
   user: {
-    displayName: string,
-    email: string,
-  },
-  error: string,
-  isUserLoggedIn: boolean,
-  loading: boolean,
+    displayName: string;
+    email: string;
+  };
+  error: string;
+  isUserLoggedIn: boolean;
+  loading: boolean;
 }

@@ -11,7 +11,15 @@ export default function Home() {
     setLinkPresent(true);
   };
 
-  const links = [];
+  const links = [
+    {
+      id: 1,
+      platform: "GitHub",
+      bgColor: "",
+      icon: "",
+      link: ""
+    }
+  ];
 
   return (
     <main className="my-14 px-9 sm:px-16">
