@@ -20,7 +20,7 @@ export default function SignUp({}: Props) {
     }
   }, []);
 
-  useReroute("/profile", isAuthenticated);
+  useReroute("/", isAuthenticated);
 
   return (
     <main className="my-16 bg-[#FAFAFA] md:flex flex-col md:my-0 justify-center items-center md:min-h-screen">

@@ -7,12 +7,21 @@ import {
   useContext,
   useEffect,
   createContext,
+  useReducer,
 } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 
 // COMPONENTS
 import { auth, provider } from "@/config/Config";
+import linksReducer from "../reducers/linksReducers";
+import {
+  ErrorProps,
+  GlobalProps,
+  LinkPlatformProps,
+  LinksProps,
+  ProfileProps,
+} from "@/types";
 
 export const GlobalContext = createContext<GlobalProps>({
   user: {
@@ -20,9 +29,24 @@ export const GlobalContext = createContext<GlobalProps>({
     email: "",
   },
   // name: "",
-  error: "",
   isUserLoggedIn: false,
   loading: false,
+  profileData: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    avatar: "",
+    links: [],
+  },
+  errors: {
+    linkError: {
+      "0": "",
+    },
+    firstNameError: "",
+    lastNameError: "",
+    emailError: "",
+    imageError: "",
+  },
 });
 
 type Props = {
@@ -31,12 +55,28 @@ type Props = {
 
 export function GlobalProvider({ children }: Props) {
   const router = useRouter();
-  const [error, setError] = useState("");
-  const [selectedLinkPlatform, setSelectedLinkPlatform] = useState<LinkPlatformProps>({
-    icon: "/icons/github.svg",
-    name: "GitHub",
+  const [currentTab, setCurrentTab] = useState("");
+  const [uid, setUid] = useState(""); //the user's account id
+  const [openLoginMessage, setOpenLoginMessage] = useState(false); //a dialog box that appears that will give the user a message
+  const [openSaveChangesMessage, setOpenSaveChangesMessage] = useState(false);
+  const [openCopiedToClipboardMessage, setOpenCopiedToClipboardMessage] =
+    useState(false);
+
+  const [selectedLinkPlatform, setSelectedLinkPlatform] =
+    useState<LinkPlatformProps>({
+      icon: "/icons/github.svg",
+      name: "GitHub",
+    });
+     const [newLink, setNewLink] = useState("");
+  const [linksCart, setLinksCart] = useState<LinksProps[]>([]);
+  const linkRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+
+  const [inputLinks, setInputLinks] = useState({
+    gitHubLink: "",
+    youTubeLink: "",
+    devToLink: "",
+    twitterLink: "",
   });
-  const [userLinks, setUserLinks] = useState<LinksProps[]>([]);
 
   const LinkPlatforms = [
     {
@@ -97,33 +137,127 @@ export function GlobalProvider({ children }: Props) {
     },
   ];
 
-  const addLink = ({ id, bgColor, icon, link, platform }: LinksProps) => {
-    const newLink: LinksProps = { id, bgColor, icon, link, platform };
-    setUserLinks([...userLinks, newLink]);
+  const [profileData, setProfileData] = useState<ProfileProps>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    avatar: "",
+    links: [],
+  });
+
+  const [errors, setErrors] = useState<ErrorProps>({
+    linkError: {
+      "0": "",
+    },
+    firstNameError: "",
+    lastNameError: "",
+    emailError: "",
+    imageError: "",
+  });
+
+  const [ isDataInArray, setIsDataInArray] = useState(profileData.links.length > 0)
+ 
+
+  const addLink = () => {
+    const newLink: LinksProps = {
+      id: `${profileData.links ? profileData.links.length + 1 : "1"}`,
+      platform: {
+        icon: "/icons/github.svg",
+        name: "GitHub",
+      },
+      link: "",
+    };
+
+    const updatedLinks =
+      profileData.links?.length === 0
+        ? [newLink]
+        : [...profileData.links, newLink];
+
+    setProfileData({
+      ...profileData,
+      links: updatedLinks,
+    });
   };
 
-  const deleteLink = (id: number) => {
-    setUserLinks(userLinks.filter((link) => link.id !== id));
+  const updateLink = (updatelink: LinksProps) => {
+    setProfileData((prev: any) => {
+      return prev.links.map((item: LinksProps) =>
+        item.id === updatelink.id ? { ...item, link: updatelink } : item
+      );
+    });
+  };
+
+  const updateProfileData = (updatedProfileDetails: ProfileProps) => {
+    setProfileData(updatedProfileDetails)
+}
+
+  const reorderLinks = (
+    links: LinksProps[],
+    startIdx: number,
+    endIdx: number
+  ) => {
+    const result = Array.from(links);
+    const [removed] = result.splice(startIdx, 1);
+    result.splice(endIdx, 0, removed);
+
+    setProfileData({
+      ...profileData,
+      links: result,
+    });
+  };
+
+  const removeLink = (id: string) => {
+    const newLinks = profileData.links.filter((link) => link.id != id);
+
+    setProfileData({
+      ...profileData,
+      links: newLinks,
+    });
+  };
+
+  const setAvatar = async (images: FileList | null) => {
+    if (!images?.length) {
+      setErrors((prev) => ({
+        ...prev,
+        imageError: "No image found.",
+      }));
+      return;
+    }
+
+    const avatar = images[0];
+
+    if (avatar.size > 1024 * 1024) {
+      setErrors((prev) => ({
+        ...prev,
+        imageError: "Incorrect Image Size (Max: 1MB)",
+      }));
+
+      return;
+    } else if (!avatar.type.startsWith("image/")) {
+      setErrors((prev) => ({
+        ...prev,
+        imageError: "Please select an image file.",
+      }));
+
+      return;
+    }
+
+    setProfileData((prev: any) => ({
+      ...prev,
+      avatar: avatar,
+    }));
+
+    console.log("Image Uploaded Successfully");
+  };
+
+  const saveAllLinks = () => {
+    console.log(linksCart);
   };
 
   // AUTHENTCATION
   const [isUserLoggedIn, setIsUserLoggedIn]: any = useState(false);
   const [user, setUser]: any = useState(auth?.currentUser);
   const [loading, setLoading] = useState(false);
-
-  const signInWithGoogle = async () => {
-    console.log("signing in with google....");
-    try {
-      await signInWithPopup(auth, provider);
-      setIsUserLoggedIn(true);
-      setUser(auth?.currentUser);
-      router.push("/");
-    } catch (err: any) {
-      console.log(err.message);
-      setError(err.message);
-      setIsUserLoggedIn(false);
-    }
-  };
 
   //  user logout
   const logOut = async () => {
@@ -137,6 +271,7 @@ export function GlobalProvider({ children }: Props) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in.
+        console.log(user);
         setUser(user);
         setIsUserLoggedIn(true);
       } else {
@@ -150,18 +285,35 @@ export function GlobalProvider({ children }: Props) {
     user,
     isUserLoggedIn,
     logOut,
-    signInWithGoogle,
-    error,
     loading,
     setLoading,
-    setError,
     setUser,
-    userLinks,
+    linksCart,
+
+    errors,
+    profileData,
+    isDataInArray,
+    setAvatar,
     addLink,
-    deleteLink,
+    removeLink,
+    updateLink,
+    updateProfileData,
     LinkPlatforms,
+    newLink,
+    setNewLink,
     selectedLinkPlatform,
     setSelectedLinkPlatform,
+    reorderLinks,
+    inputLinks,
+
+    uid,
+    setUid,
+    openLoginMessage,
+    openCopiedToClipboardMessage,
+    openSaveChangesMessage,
+    setOpenCopiedToClipboardMessage,
+    setOpenLoginMessage,
+    setOpenSaveChangesMessage,
   };
 
   return (

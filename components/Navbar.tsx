@@ -1,3 +1,4 @@
+import { NavItemProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,7 +25,7 @@ export function Navbar() {
     },
   ];
   return (
-    <nav className="px-6 py-4 flex justify-between items-center">
+    <nav className="px-6 py-4 flex justify-between items-center bg-white">
       <Link href="/">
         {/* visible on mobile only  */}
         <Image
@@ -33,6 +34,7 @@ export function Navbar() {
           height="0"
           className="w-fit sm:hidden"
           alt="logo"
+          priority
         />
         {/* visible on tablet and larger screens  */}
         <Image
@@ -41,6 +43,7 @@ export function Navbar() {
           height="0"
           className="w-fit hidden sm:block sm:w-[9rem]"
           alt="logo"
+          priority
         />
       </Link>
       <div className="flex items-center">

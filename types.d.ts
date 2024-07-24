@@ -1,9 +1,11 @@
+import { LinkProps } from "next/link";
+
 interface LinksProps {
-  id: number;
+  id?: string;
   platform: LinkPlatformProps;
   link: string;
-  bgColor: string;
-  icon: string;
+  bgColor?: string;
+  icon?: string;
 }
 
 interface LinkPlatformProps {
@@ -12,7 +14,7 @@ interface LinkPlatformProps {
 }
 
 interface SaveBtnProps {
-  linkPresent: boolean;
+  condition: boolean;
 }
 
 interface NavItemProps {
@@ -28,7 +30,7 @@ interface SelectProps {
   headerIcon?: string;
   setHeader?: (x: LinkPlatformProps) => void;
   options: LinkPlatformProps[];
-  onOptionClick: (value: LinkPlatformProps) => void
+  onOptionClick: (value: LinkPlatformProps) => void;
 }
 
 interface SelectOptionProps {
@@ -37,19 +39,72 @@ interface SelectOptionProps {
   onSelect: (e: string) => void;
 }
 
+type Action =
+  | { type: "ADD_LINK"; payload: LinksProps }
+  | { type: "REMOVE_LINK"; payload: string };
+
+interface State {
+  userLinks: LinksProps[];
+}
+
+interface LinksContextProps {
+  userLinks: LinksProps[];
+  dispatch: React.Dispatch<Action>;
+}
+
+interface ProfileProps {
+  firstName: string;
+  lastName: string;
+  email: string;
+  avatar: string;
+  links: LinksProps[];
+}
+
+interface ErrorProps {
+  linkError: {
+    "0": string;
+  };
+  firstNameError: string;
+  lastNameError: string;
+  emailError: string;
+  imageError: string;
+}
+
 interface GlobalProps {
   user: {
     displayName: string;
     email: string;
   };
-  error: string;
   isUserLoggedIn: boolean;
   loading: boolean;
+  errors: ErrorProps;
 
+  newLink?: string;
+  setNewLink?: (x: string) => void;
   selectedLinkPlatform?: LinkPlatformProps;
   setSelectedLinkPlatform?: (x: LinkPlatformProps) => void;
-  userLinks?: LinksProps[];
+  profileData: ProfileProps;
+  linksCart?: LinksProps[];
+  isDataInArray?: boolean;
+
+  setLinksCart?: (x: LinksProps) => void;
   LinkPlatforms?: LinkPlatformProps[];
-  addLink?: (x: LinkProps) => void;
-  deleteLink?: (id: number) => void;
+  addLink?: () => void;
+  updateLink?: (link: LinksProps) => void;
+  updateProfileData?: (data: ProfileProps) => void;
+  removeLink?: (id: string) => void;
+  reorderLinks?: (
+    links: LinksProps[],
+    startIdx: number,
+    endIdx: number
+  ) => void;
+
+  setAvatar?: (images: FileList | null) => void;
+  inputLinks?: {
+    gitHubLink: string;
+    youTubeLink: string;
+    devToLink: string;
+    twitterLink: string;
+  };
+  // reducerProps: <(usersLinks: any[] | undefined, action: any) => any[]>(reducer: (usersLinks: any[] | undefined, action: any) => any[], initializerArg: any[], initializer?: undefined): [ReducerStateWithoutAction<(usersLinks: any[] | undefined, action: any) => any[]>
 }

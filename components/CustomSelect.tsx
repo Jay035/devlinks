@@ -1,5 +1,6 @@
 "use client";
 
+import { LinkPlatformProps, SelectProps } from "@/types";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
@@ -39,7 +40,7 @@ export default function CustomSelect({
       }}
       ref={dropdownRef}
     >
-      <div className={`dropdown-header flex items-center gap-1 `} id="">
+      <div className={`dropdown-header flex items-center gap-[14.3px] `} id="">
         {headerIcon && (
           <Image
             width="0"
@@ -57,8 +58,8 @@ export default function CustomSelect({
             <div
               key={index}
               onClick={() => {
-                onOptionClick(option);
                 setDropdownOpen(false);
+                onOptionClick(option);
               }}
               className="custom-option last:border-b-0 py-2 text-grey"
             >

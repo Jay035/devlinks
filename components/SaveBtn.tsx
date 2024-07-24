@@ -1,10 +1,13 @@
+import { useGlobalProvider } from "@/context/GlobalProvider";
+import { SaveBtnProps } from "@/types";
 
-export function SaveBtn({ linkPresent }: SaveBtnProps) {
+export function SaveBtn({ condition }: SaveBtnProps) {
+  
   return (
     <button
       // onClick={() => console.log(linkPresent)}
-      disabled={!linkPresent}
-      className="rounded-lg text-white font-semibold border-t border-[#D9D9D9] m-4 sm:mt-[2.56rem] w-full flex sm:w-fit ml-auto py-[0.69rem] px-[1.69rem] bg-purple disabled:opacity-25"
+      disabled={!condition}
+      className="rounded-lg cursor-pointer text-white font-semibold w-full sm:flex sm:w-fit ml-auto py-[0.69rem] px-[1.69rem] bg-purple disabled:opacity-25"
     >
       Save
     </button>
