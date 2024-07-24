@@ -17,7 +17,7 @@ export default function Home() {
 
   const handleAddLink = () => {
     addLink?.();
-    if (profileData.links.length > 0) setDataInArray(true);
+    if (profileData?.links.length > 0) setDataInArray(true);
   };
 
   // const links = [

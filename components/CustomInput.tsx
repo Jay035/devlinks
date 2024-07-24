@@ -13,6 +13,7 @@ type Props = {
   placeholder: string;
   label: string;
   inputName?: string;
+  error?: string;
 };
 
 export function CustomInput({
@@ -26,6 +27,7 @@ export function CustomInput({
   id,
   placeholder,
   inputName,
+  error,
 }: Props) {
   const path = usePathname();
   return (
@@ -33,7 +35,11 @@ export function CustomInput({
       <label className="text-xs" htmlFor={id}>
         {label}
       </label>
-      <div className="border border-[#D9D9D9] py-3 px-4 rounded-lg flex gap-3 items-center cursor-pointer hover:border hover:border-purple focus-within:border focus-within:border-purple">
+      <div
+        className={` ${
+          error !== "" ? "border-[#FF3939]" : "border-[#D9D9D9]"
+        } border  py-3 px-4 rounded-lg flex gap-3 items-center cursor-pointer hover:border hover:border-purple focus-within:border focus-within:border-purple`}
+      >
         <Image
           src={iconSrc}
           width="0"
@@ -48,10 +54,11 @@ export function CustomInput({
           onBlur={onInputBlur}
           id={id}
           type={type}
-          className="p-0 border-none outline-none w-full bg-transparent cursor-pointer "
+          className={`p-0 border-none outline-none w-full bg-transparent cursor-pointer `}
           placeholder={placeholder}
           required
         />
+        {error && <span className="text-[#FF3939] text-xs">{error}</span>}
       </div>
     </section>
   );

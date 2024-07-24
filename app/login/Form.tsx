@@ -1,5 +1,7 @@
 import { CustomInput } from "@/components/CustomInput";
 import { auth } from "@/config/Config";
+import { useGlobalProvider } from "@/context/GlobalProvider";
+import { ErrorProps } from "@/types";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,8 +13,13 @@ export function Form({}: Props) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+    network: "",
+    emailOrPassword: "",
+  });
 
   const login = async (e: any) => {
     e.preventDefault();
@@ -30,22 +37,37 @@ export function Form({}: Props) {
       console.log(err.code);
       switch (err.code) {
         case "auth/invalid-email":
-          setError("Invalid email");
+          setError((prev: any) => ({
+            ...prev,
+            email: "Invalid email",
+          }));
           break;
         case "auth/user-not-found":
-          setError("No account with that email was found");
+          setError((prev: any) => ({
+            ...prev,
+            email: "No account with that email was found",
+          }));
           break;
         case "auth/wrong-password":
-          setError("Incorrect password");
+          setError((prev: any) => ({
+            ...prev,
+            password: "Incorrect password",
+          }));
           break;
         case "auth/network-request-failed":
-          setError("Network request failed, check your network connection");
+          setError((prev: any) => ({
+            ...prev,
+            network: "Network request failed, check your network connection",
+          }));
           break;
-        case "auth/operation-not-allowed":
-          setError("operation not allowed");
-          break;
+        // case "auth/operation-not-allowed":
+        //   setError("operation not allowed");
+        //   break;
         default:
-          setError("Incorrect email or password");
+          setError((prev: any) => ({
+            ...prev,
+            emailOrPassword: "Incorrect email or password",
+          }));
           break;
       }
     }
@@ -63,8 +85,12 @@ export function Form({}: Props) {
         </p>
       </div>
       <div className="grid gap-6 mt-10">
-        {error && <p className="text-red-500">{error}</p>}
+        {error.network && <p className="text-red-500">{error.network}</p>}
+        {error.emailOrPassword && (
+          <p className="text-red-500">{error.emailOrPassword}</p>
+        )}
         <CustomInput
+          error={error.email}
           value={email}
           placeholder="e.g. alex@email.com"
           label="Email address"
@@ -76,7 +102,9 @@ export function Form({}: Props) {
           iconSrc="/icons/mail-icon.svg"
           altText="mail icon"
         />
+
         <CustomInput
+          error={error.password}
           value={password}
           placeholder="Enter your password"
           label="Password"
@@ -94,12 +122,16 @@ export function Form({}: Props) {
           className="bg-purple disabled:bg-purple/70 px-[27px] py-[11px] text-white rounded-lg"
           type="submit"
         >
-          {loading ? <span className="animate-pulse">Logging in...</span> : "Login"}
+          {loading ? (
+            <span className="animate-pulse">Logging in...</span>
+          ) : (
+            "Login"
+          )}
         </button>
         <p className="text-center">
           Don&apos;t have an account?{" "}
           <Link href="/signup" className="text-purple ml-1">
-           Sign up
+            Sign up
           </Link>
         </p>
       </div>

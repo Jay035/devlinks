@@ -11,3 +11,7 @@
 - [ ] persist links to local storage
 
 - [ ] restrict image type to png and jpeg
+
+- [ ] work on drag and drop
+
+- [ ] work on rerouting to homepage if user is already authenticated in login and signup pages

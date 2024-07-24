@@ -46,6 +46,7 @@ export const GlobalContext = createContext<GlobalProps>({
     lastNameError: "",
     emailError: "",
     imageError: "",
+    passwordError: "",
   },
 });
 
@@ -153,6 +154,7 @@ export function GlobalProvider({ children }: Props) {
     lastNameError: "",
     emailError: "",
     imageError: "",
+    passwordError: "",
   });
 
   const [isDataInArray] = useState(profileData?.links?.length > 0);
@@ -253,6 +255,13 @@ export function GlobalProvider({ children }: Props) {
     console.log("Image Uploaded Successfully");
   };
 
+  const updateErrors = (err: ErrorProps) => {
+    setErrors((prev) => ({
+      ...prev,
+      imageError: "Incorrect Image Size (Max: 1MB)",
+    }));
+  }
+
   const saveAllLinks = () => {
     console.log(linksCart);
   };
@@ -267,13 +276,14 @@ export function GlobalProvider({ children }: Props) {
     await signOut(auth);
     setIsUserLoggedIn(false);
     setUser(null);
-    router.push("/");
+    router.push("/login");
   };
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in.
+        router.push("/");
         console.log(user);
         setUser(user);
         setIsUserLoggedIn(true);

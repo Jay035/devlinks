@@ -68,6 +68,7 @@ interface ErrorProps {
   lastNameError: string;
   emailError: string;
   imageError: string;
+  passwordError: string,
 }
 
 interface GlobalProps {
@@ -78,6 +79,7 @@ interface GlobalProps {
   isUserLoggedIn: boolean;
   loading: boolean;
   errors: ErrorProps;
+  // updateErrors?: (err: ErrorProps) => void;
 
   newLink?: string;
   setNewLink?: (x: string) => void;
