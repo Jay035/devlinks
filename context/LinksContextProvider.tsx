@@ -53,7 +53,7 @@ export function LinksContextProvider({ children }: Props) {
     setLinksCart([...linksCart, newLink]);
   };
 
-  const deleteLink = (id: number) => {
+  const deleteLink = (id: string) => {
     setLinksCart(linksCart.filter((link) => link.id !== id));
   };
 
