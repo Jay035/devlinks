@@ -34,7 +34,7 @@ export default function CustomSelect({
 
   return (
     <div
-      className="custom-dropdown"
+      className={`custom-dropdown ${dropdownOpen && 'open'}`}
       onClick={() => {
         setDropdownOpen((prevState) => !prevState);
       }}

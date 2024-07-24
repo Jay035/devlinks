@@ -2,13 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
   @apply bg-[#fafafa];
 }
 
-.cursor-custom{
-  cursor:
-  url("../public/icons/pointer.svg") 4 5;
+.cursor-custom {
+  cursor: url("../public/icons/pointer.svg") 4 5;
 }
 
 /* ----------------------------- */
@@ -25,7 +24,12 @@ body{
   position: absolute;
   top: 55%;
   right: 10px;
+  transition: transform ease-in .3s linear;
   transform: translateY(-50%);
+}
+
+.custom-dropdown.open::after {
+  transform: rotate(180deg) translateY(50%);
 }
 
 .dropdown-options {

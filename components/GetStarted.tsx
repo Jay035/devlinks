@@ -5,7 +5,7 @@ type Props = {};
 
 export function GetStarted({}: Props) {
   return (
-    <section className="flex bg-[#FAFAFA] flex-col gap-6 items-center text-center p-5 mt-12 sm:py-[5.16rem]">
+    <section className="flex  m-6 sm:px-16 bg-[#FAFAFA] flex-col gap-6 items-center text-center p-5 mt-12 sm:py-[5.16rem]">
       <Image
         src="/images/get-started.svg"
         width="0"

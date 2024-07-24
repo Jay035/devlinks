@@ -67,7 +67,7 @@ export function GlobalProvider({ children }: Props) {
       icon: "/icons/github.svg",
       name: "GitHub",
     });
-     const [newLink, setNewLink] = useState("");
+  const [newLink, setNewLink] = useState("");
   const [linksCart, setLinksCart] = useState<LinksProps[]>([]);
   const linkRegex = /^(ftp|http|https):\/\/[^ "]+$/;
 
@@ -155,8 +155,7 @@ export function GlobalProvider({ children }: Props) {
     imageError: "",
   });
 
-  const [ isDataInArray, setIsDataInArray] = useState(profileData.links.length > 0)
- 
+  const [isDataInArray] = useState(profileData?.links?.length > 0);
 
   const addLink = () => {
     const newLink: LinksProps = {
@@ -188,8 +187,8 @@ export function GlobalProvider({ children }: Props) {
   };
 
   const updateProfileData = (updatedProfileDetails: ProfileProps) => {
-    setProfileData(updatedProfileDetails)
-}
+    setProfileData(updatedProfileDetails);
+  };
 
   const reorderLinks = (
     links: LinksProps[],
@@ -245,6 +244,10 @@ export function GlobalProvider({ children }: Props) {
     setProfileData((prev: any) => ({
       ...prev,
       avatar: avatar,
+    }));
+    setErrors((prev) => ({
+      ...prev,
+      imageError: "",
     }));
 
     console.log("Image Uploaded Successfully");

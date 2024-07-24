@@ -37,7 +37,7 @@ export const UploadImage = () => {
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAvatar?.(e.target.files);
-    console.log(e.target.files)
+    console.log(e.target.files);
   };
 
   const handleClick = () => {
@@ -48,8 +48,10 @@ export const UploadImage = () => {
 
   return (
     <div
-    //   className="group dragdrop-container-layout dragdrop-container-styles"
-      className={`group w-[193px] cursor-pointer h-[193px] rounded-xl px-9 flex flex-col gap-2 text-purple font-semibold justify-center items-center bg-light-purple `}
+      //   className="group dragdrop-container-layout dragdrop-container-styles"
+      className={` ${
+        imageError ? "border-red-500" : ""
+      } group w-[193px] cursor-pointer h-[193px] rounded-xl px-2 lg:px-9 flex flex-col gap-2 text-purple font-semibold justify-center items-center bg-light-purple `}
       style={{
         backgroundImage: profileData.avatar
           ? `url(${getImageURL(profileData.avatar)})`
@@ -67,16 +69,14 @@ export const UploadImage = () => {
     >
       <input
         type="file"
-        accept="image/*"
+        accept=".jpeg, .jpg, .png"
         ref={fileInputRef}
         style={{ display: "none" }}
         onChange={handleFileInputChange}
       />
 
       <div
-        className={` flex flex-col gap-2 text-center text-purple font-semibold justify-center items-center ${
-          imageError ? "border-red-500 text-red-500" : ""
-        }  ${
+        className={` flex flex-col gap-2 text-center text-purple font-semibold justify-center items-center   ${
           profileData.avatar ? "opacity-0" : "opacity-1"
         } `}
       >

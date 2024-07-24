@@ -52,8 +52,8 @@ export default function Home() {
   };
 
   return (
-    <main className=" p-6 sm:px-16 bg-white mx-4 h-full">
-      <section>
+    <main className=" bg-white mx-4 h-full">
+      <section className=" p-6 sm:px-16">
         <h1 className="text-dark-grey text-2xl font-bold">
           Customize your links
         </h1>
@@ -77,7 +77,7 @@ export default function Home() {
                 <div
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  className="w-full h-full flex flex-col gap-5"
+                  className="w-full h-full flex flex-col gap-5 p-6 sm:px-16"
                 >
                   <LinkList />
                   {provided.placeholder}
