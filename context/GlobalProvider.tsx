@@ -309,7 +309,7 @@ export function GlobalProvider({ children }: Props) {
   // AUTHENTCATION
   const [isUserLoggedIn, setIsUserLoggedIn]: any = useState(false);
   const [user, setUser]: any = useState(auth?.currentUser);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   //  user logout
   const logOut = async () => {
@@ -322,14 +322,14 @@ export function GlobalProvider({ children }: Props) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        setLoading(false)
         // User is signed in.
         router.push("/");
         console.log(user);
-        setUser(user);
-        setIsUserLoggedIn(true);
       } else {
         // User is not signed in.
-        setIsUserLoggedIn(false);
+        setLoading(false)
+        router.push("/login");
       }
     });
   }, []);

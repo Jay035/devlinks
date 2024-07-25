@@ -11,7 +11,7 @@ import { auth } from "@/config/Config";
 import { useReroute } from "@/utils/useReroute";
 
 export default function Home() {
-  const { profileData, addLink, reorderLinks } = useGlobalProvider();
+  const { profileData, addLink, reorderLinks, setLoading } = useGlobalProvider();
 
   const [dataInArray, setDataInArray] = useState<boolean>(false);
 

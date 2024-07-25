@@ -2,6 +2,7 @@
 
 import { GetStarted } from "@/components/GetStarted";
 import LinkList from "@/components/LinkList";
+import Loader from "@/components/Loader";
 import { Navbar } from "@/components/Navbar";
 import PhonePlaceholder from "@/components/PhonePlaceholder";
 import { auth } from "@/config/Config";
@@ -18,6 +19,7 @@ export default function BodyComponent({
   children: React.ReactNode;
 }) {
   const path = usePathname();
+  const { loading } = useGlobalProvider();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -29,7 +31,9 @@ export default function BodyComponent({
 
   useReroute("/login", !isAuthenticated);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="md:px-4 scroll-smooth">
       {path !== "/login" && path !== "/signup" && <Navbar />}
       <div

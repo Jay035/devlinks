@@ -77,6 +77,7 @@ interface GlobalProps {
   isUserLoggedIn: boolean;
   loading: boolean;
   errors: ErrorProps;
+  setLoading?: (x: boolean) => void;
   // updateErrors?: (err: ErrorProps) => void;
 
   newLink?: string;
