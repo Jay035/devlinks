@@ -4,7 +4,7 @@ import { CustomInput } from "./CustomInput";
 import Image from "next/image";
 import { useGlobalProvider } from "@/context/GlobalProvider";
 import { LinkPlatformProps, LinksProps } from "@/types";
-import { Draggable } from "@hello-pangea/dnd";
+import { Draggable } from "react-beautiful-dnd";
 
 type Props = {
   item: LinksProps;
@@ -15,19 +15,15 @@ export default function LinkItem({ item, index }: Props) {
   const { profileData, LinkPlatforms, addLink, updateLink, removeLink } =
     useGlobalProvider();
 
-  // const platformsNotAdded= LinkPlatforms?.filter(platform => link)
-  const [link, setLink] = useState("");
   const [selectedLinkPlatform, setSelectedLinkPlatform] =
-    useState<LinkPlatformProps>({
-      icon: "/icons/github.svg",
-      name: "GitHub",
-    });
+    useState<LinkPlatformProps>(item.platform);
+    const [link, setLink] = useState(item.link)
 
-  const onOptionClick = (value: LinkPlatformProps) => {
-    setSelectedLinkPlatform(value);
-    addLink?.();
-    console.log(profileData);
-  };
+  // const onOptionClick = (value: LinkPlatformProps) => {
+  //   setSelectedLinkPlatform(value);
+  //   addLink?.();
+  //   console.log(profileData);
+  // };
 
   const handlePlatformUpdate = (option: LinkPlatformProps) => {
     setSelectedLinkPlatform(option);
@@ -35,18 +31,18 @@ export default function LinkItem({ item, index }: Props) {
       ...item,
       platform: option,
     };
-    console.log(profileData);
 
-    updateLink?.(newLink);
+    updateLink?.(newLink, 'platform');
   };
 
-  const handleLinkUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLinkUpdate = (value: string) => {
     const newLink = {
       ...item,
-      link: e.target.value,
+      link: value,
     };
+    console.log(newLink);
 
-    updateLink?.(newLink);
+    updateLink?.(newLink, "link");
   };
 
   return (
@@ -82,21 +78,22 @@ export default function LinkItem({ item, index }: Props) {
             <p className="mb-1 text-xs text-dark-grey">Platform</p>
             <CustomSelect
               options={LinkPlatforms!}
-              header={item.platform.name}
-              headerIcon={item.platform.icon}
+              header={selectedLinkPlatform?.name}
+              headerIcon={selectedLinkPlatform?.icon}
               onOptionClick={handlePlatformUpdate}
             />
           </div>
           <CustomInput
-            value={item.link}
+            error=""
+            value={item?.link}
             placeholder="https://www.github.com/benwright"
             label="Link"
             id={`${selectedLinkPlatform?.name} link`}
             type="website"
             onchange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setLink(e.target.value);
-              handleLinkUpdate(e);
-              console.log(profileData);
+              handleLinkUpdate(e.target.value);
+              // setLink(e.target.value)
+              // console.log(profileData);
             }}
             iconSrc="/icons/link.svg"
             altText="link icon"

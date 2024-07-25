@@ -68,7 +68,6 @@ export function GlobalProvider({ children }: Props) {
       icon: "/icons/github.svg",
       name: "GitHub",
     });
-  const [newLink, setNewLink] = useState("");
   const [linksCart, setLinksCart] = useState<LinksProps[]>([]);
   const linkRegex = /^(ftp|http|https):\/\/[^ "]+$/;
 
@@ -159,33 +158,54 @@ export function GlobalProvider({ children }: Props) {
 
   const [isDataInArray] = useState(profileData?.links?.length > 0);
 
-  const addLink = () => {
-    const newLink: LinksProps = {
-      id: `${profileData.links ? profileData.links.length + 1 : "1"}`,
-      platform: {
-        icon: "/icons/github.svg",
-        name: "GitHub",
-      },
-      link: "",
-    };
+  const addLink = (link: LinksProps) => {
+    // const newLink: LinksProps = {
+    //   id: `${profileData?.links ? profileData.links.length + 1 : "1"}`,
+    //   platform: {
+    //     icon: "/icons/github.svg",
+    //     name: "GitHub",
+    //   },
+    //   link: "",
+    // };
+
+    // let temp: LinksProps[] = []
+    //     const hasDuplicate = profileData.links.every((link: LinksProps) => {
+    //         if(!temp.includes(link.link)){
+    //             temp.push(link.platform)
+    //             return true;
+    //         }
+    //         else
+    //             return false
+
+    //     })
+    //     if(!hasDuplicate){
+    //         alert('You cannot have duplicate platform links');
+    //         return;
+    //     }
+
+    const hasLinkBeenAdded = profileData.links?.find(
+      (item: LinksProps) => item?.id === link.id
+    );
+    console.log(hasLinkBeenAdded);
 
     const updatedLinks =
-      profileData.links?.length === 0
-        ? [newLink]
-        : [...profileData.links, newLink];
+      profileData.links?.length === 0 ? [link] : [...profileData.links, link];
 
-    setProfileData({
-      ...profileData,
+    setProfileData((prev: any) => ({
+      ...prev,
       links: updatedLinks,
-    });
+    }));
+    console.log(link);
+    console.log(profileData.links);
   };
 
-  const updateLink = (updatelink: LinksProps) => {
-    setProfileData((prev: any) => {
-      return prev.links.map((item: LinksProps) =>
-        item.id === updatelink.id ? { ...item, link: updatelink } : item
-      );
-    });
+  const updateLink = (updatedlink: LinksProps, label: string) => {
+    // console.log(updatedlink);
+    setProfileData((prev: any) =>
+      prev.links.map((link: LinksProps) =>
+        link.id === updatedlink?.id ? { ...link, platf: updatedlink } : link
+      )
+    );
   };
 
   const updateProfileData = (updatedProfileDetails: ProfileProps) => {
@@ -255,13 +275,6 @@ export function GlobalProvider({ children }: Props) {
     console.log("Image Uploaded Successfully");
   };
 
-  const updateErrors = (err: ErrorProps) => {
-    setErrors((prev) => ({
-      ...prev,
-      imageError: "Incorrect Image Size (Max: 1MB)",
-    }));
-  }
-
   const saveAllLinks = () => {
     console.log(linksCart);
   };
@@ -312,8 +325,6 @@ export function GlobalProvider({ children }: Props) {
     updateLink,
     updateProfileData,
     LinkPlatforms,
-    newLink,
-    setNewLink,
     selectedLinkPlatform,
     setSelectedLinkPlatform,
     reorderLinks,

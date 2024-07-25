@@ -52,6 +52,7 @@ export function CustomInput({
           value={value}
           onChange={onchange}
           onBlur={onInputBlur}
+          autoComplete="off"
           id={id}
           type={type}
           className={`p-0 border-none outline-none w-full bg-transparent cursor-pointer `}

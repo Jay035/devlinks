@@ -1,22 +1,30 @@
 "use client";
 
 import { GetStarted } from "@/components/GetStarted";
-import { LinkForm } from "@/components/LinkForm";
 import { SaveBtn } from "@/components/SaveBtn";
 import { useGlobalProvider } from "@/context/GlobalProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LinkList from "@/components/LinkList";
 import { LinksProps } from "@/types";
-import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { auth } from "@/config/Config";
+import { useReroute } from "@/utils/useReroute";
 
 export default function Home() {
   const { profileData, addLink, reorderLinks } = useGlobalProvider();
-  const [newLinks, setNewLinks] = useState<LinksProps[]>([]);
 
   const [dataInArray, setDataInArray] = useState<boolean>(false);
 
   const handleAddLink = () => {
-    addLink?.();
+    const newLink: LinksProps = {
+      id: `${profileData?.links ? profileData.links.length + 1 : "1"}`,
+      platform: {
+        icon: "/icons/github.svg",
+        name: "GitHub",
+      },
+      link: "",
+    };
+    addLink?.(newLink);
     if (profileData?.links.length > 0) setDataInArray(true);
   };
 
@@ -50,6 +58,18 @@ export default function Home() {
       result.destination.index
     );
   };
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setTimeout(() => {
+        setIsAuthenticated(true);
+      }, 500);
+    }
+  }, []);
+
+  useReroute("/", isAuthenticated);
 
   return (
     <main className=" bg-white mx-4 h-full">

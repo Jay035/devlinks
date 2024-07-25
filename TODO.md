@@ -15,3 +15,7 @@
 - [ ] work on drag and drop
 
 - [ ] work on rerouting to homepage if user is already authenticated in login and signup pages
+
+- [ ] test out add link function
+
+- [ ] cleanup code

@@ -91,8 +91,8 @@ interface GlobalProps {
 
   setLinksCart?: (x: LinksProps) => void;
   LinkPlatforms?: LinkPlatformProps[];
-  addLink?: () => void;
-  updateLink?: (link: LinksProps) => void;
+  addLink?: (link: LinksProps) => void;
+  updateLink?: (link: LinksProps, label: string) => void;
   updateProfileData?: (data: ProfileProps) => void;
   removeLink?: (id: string) => void;
   reorderLinks?: (

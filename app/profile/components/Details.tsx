@@ -10,6 +10,11 @@ export default function Details({}: Props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
 
   const handleProfileUpdate = (value: string, id: string) => {
     const updatedDetails = {
@@ -26,6 +31,7 @@ export default function Details({}: Props) {
   return (
     <div className="rounded-xl flex gap-3 flex-col my-6 p-5 bg-[#FAFAFA] text-dark-grey">
       <CustomInput
+        error={error.firstName}
         value={firstName}
         placeholder="e.g. Ben"
         label="First name*"
@@ -40,6 +46,7 @@ export default function Details({}: Props) {
         altText=""
       />
       <CustomInput
+        error={error.lastName}
         value={lastName}
         placeholder="e.g. Wright"
         label="Last name*"
@@ -54,6 +61,7 @@ export default function Details({}: Props) {
         altText=""
       />
       <CustomInput
+        error={error.email}
         value={email}
         placeholder="ben@example.com"
         label="Email"
