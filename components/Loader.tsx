@@ -11,7 +11,7 @@ export default function Loader({}: Props) {
         alt="logo"
         width="0"
         height="0"
-        className="w-32 animate-pulse"
+        className="w-16 lg:w-32 animate-pulse"
         priority
       />
     </div>
