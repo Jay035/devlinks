@@ -10,6 +10,18 @@ body {
   cursor: url("../public/icons/pointer.svg") 4 5;
 }
 
+.shadow-custom-purple{
+  box-shadow: 0px 0px 32px 0px #633CFF40;
+
+}
+
+.shadow-custom-grey{
+  box-shadow: 0px 0px 32px 0px #0000001A;
+
+}
+
+
+
 /* ----------------------------- */
 /* CUSTOM SELECT BOX */
 /* --------------------------- */

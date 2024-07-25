@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 
 // COMPONENTS
-import { auth, provider } from "@/config/Config";
+import { auth, db, provider } from "@/config/Config";
 import linksReducer from "../reducers/linksReducers";
 import {
   ErrorProps,
@@ -22,6 +22,7 @@ import {
   LinksProps,
   ProfileProps,
 } from "@/types";
+import { addDoc, collection } from "firebase/firestore";
 
 export const GlobalContext = createContext<GlobalProps>({
   user: {
@@ -275,8 +276,29 @@ export function GlobalProvider({ children }: Props) {
     console.log("Image Uploaded Successfully");
   };
 
-  const saveAllLinks = () => {
-    console.log(linksCart);
+  const [linksSaved, setLinksSaved] = useState(false);
+  const linksRef = collection(db, "profileData");
+
+  const saveProfile = async () => {
+    console.log(linksRef);
+
+    try {
+      console.log(`saving profile....`);
+      await addDoc(linksRef, {
+        displayName: auth.currentUser?.displayName,
+        email: auth.currentUser?.email,
+        links: profileData.links,
+        uid: auth?.currentUser?.uid,
+      });
+      setLinksSaved(true);
+      // re-route to blog page
+      setTimeout(() => {
+        setLinksSaved(false);
+        // router.push("/blog");
+      }, 1000);
+    } catch (err: any) {
+      console.log(err.message);
+    }
   };
 
   // AUTHENTCATION
@@ -329,6 +351,9 @@ export function GlobalProvider({ children }: Props) {
     setSelectedLinkPlatform,
     reorderLinks,
     inputLinks,
+
+    linksSaved,
+    saveProfile,
 
     uid,
     setUid,

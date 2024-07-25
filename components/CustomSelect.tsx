@@ -34,13 +34,13 @@ export default function CustomSelect({
 
   return (
     <div
-      className={`custom-dropdown ${dropdownOpen && 'open'}`}
+      className={`custom-dropdown shadow-custom-grey hover:shadow-custom-purple  hover:border hover:border-purple  ${dropdownOpen && 'open'}`}
       onClick={() => {
         setDropdownOpen((prevState) => !prevState);
       }}
       ref={dropdownRef}
     >
-      <div className={`dropdown-header flex items-center gap-[14.3px] `} id="">
+      <div className={`dropdown-header flex items-center gap-[14.3px]`} id="">
         {headerIcon && (
           <Image
             width="0"
@@ -53,7 +53,7 @@ export default function CustomSelect({
         <p className="truncate">{header}</p>
       </div>
       {dropdownOpen && (
-        <div className="dropdown-options flex flex-col gap-2">
+        <div className="dropdown-options shadow-custom-grey  flex flex-col gap-2">
           {options?.map((option: LinkPlatformProps, index: number) => (
             <div
               key={index}
@@ -61,7 +61,7 @@ export default function CustomSelect({
                 setDropdownOpen(false);
                 onOptionClick(option);
               }}
-              className="custom-option last:border-b-0 py-2 text-grey"
+              className="custom-option last:border-b-0 py-2 text-grey hover:text-purple"
             >
               {option.name}
             </div>

@@ -108,5 +108,8 @@ interface GlobalProps {
     devToLink: string;
     twitterLink: string;
   };
+
+  linksSaved?: boolean;
+  saveProfile?: () => void;
   // reducerProps: <(usersLinks: any[] | undefined, action: any) => any[]>(reducer: (usersLinks: any[] | undefined, action: any) => any[], initializerArg: any[], initializer?: undefined): [ReducerStateWithoutAction<(usersLinks: any[] | undefined, action: any) => any[]>
 }

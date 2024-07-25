@@ -73,8 +73,8 @@ export default function Home() {
 
   return (
     <main className=" bg-white mx-4 h-full">
-      <section className=" p-6 sm:px-16">
-        <h1 className="text-dark-grey text-2xl font-bold">
+      <section className=" p-6 sm:px-16 sm:p-10">
+        <h1 className="text-dark-grey text-2xl md:text-3xl font-bold">
           Customize your links
         </h1>
         <p className="text-grey mt-2 mb-10">
