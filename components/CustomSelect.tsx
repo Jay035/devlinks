@@ -34,7 +34,7 @@ export default function CustomSelect({
 
   return (
     <div
-      className={`custom-dropdown shadow-custom-grey hover:shadow-custom-purple  hover:border hover:border-purple  ${dropdownOpen && 'open'}`}
+      className={`custom-dropdown hover:shadow-custom-purple  hover:border hover:border-purple  ${dropdownOpen && 'open'}`}
       onClick={() => {
         setDropdownOpen((prevState) => !prevState);
       }}

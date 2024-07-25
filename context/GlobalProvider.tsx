@@ -184,10 +184,10 @@ export function GlobalProvider({ children }: Props) {
     //         return;
     //     }
 
-    const hasLinkBeenAdded = profileData.links?.find(
-      (item: LinksProps) => item?.id === link.id
-    );
-    console.log(hasLinkBeenAdded);
+    // const hasLinkBeenAdded = profileData.links?.find(
+    //   (item: LinksProps) => item?.id === link.id
+    // );
+    // console.log(hasLinkBeenAdded);
 
     const updatedLinks =
       profileData.links?.length === 0 ? [link] : [...profileData.links, link];
@@ -196,17 +196,22 @@ export function GlobalProvider({ children }: Props) {
       ...prev,
       links: updatedLinks,
     }));
-    console.log(link);
-    console.log(profileData.links);
   };
 
-  const updateLink = (updatedlink: LinksProps, label: string) => {
-    // console.log(updatedlink);
-    setProfileData((prev: any) =>
-      prev.links.map((link: LinksProps) =>
-        link.id === updatedlink?.id ? { ...link, platf: updatedlink } : link
-      )
-    );
+  const updateLink = (
+    updatedlink: LinksProps,
+    label: string,
+    index: string
+  ) => {
+    console.log(updatedlink);
+    if (updatedlink) {
+      setProfileData((prevState: any) => ({
+        ...prevState,
+        links: prevState.links.map((link: LinksProps) =>
+          link.id === index ? { ...link, updatedlink } : link
+        ),
+      }));
+    }
   };
 
   const updateProfileData = (updatedProfileDetails: ProfileProps) => {

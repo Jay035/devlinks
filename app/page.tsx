@@ -91,20 +91,9 @@ export default function Home() {
       </section>
       <section className="">
         {profileData && profileData?.links?.length > 0 ? (
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="list">
-              {(provided: any) => (
-                <div
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  className="w-full h-full flex flex-col gap-5 p-6 sm:px-16"
-                >
-                  <LinkList />
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <div className="w-full h-full flex flex-col gap-5 p-6 sm:px-16">
+            <LinkList />
+          </div>
         ) : (
           <GetStarted />
         )}

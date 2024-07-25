@@ -4,8 +4,6 @@ interface LinksProps {
   id?: string;
   platform: LinkPlatformProps;
   link: string;
-  bgColor?: string;
-  icon?: string;
 }
 
 interface LinkPlatformProps {
@@ -92,7 +90,7 @@ interface GlobalProps {
   setLinksCart?: (x: LinksProps) => void;
   LinkPlatforms?: LinkPlatformProps[];
   addLink?: (link: LinksProps) => void;
-  updateLink?: (link: LinksProps, label: string) => void;
+  updateLink?: (link: LinksProps, label: string, index: string) => void;
   updateProfileData?: (data: ProfileProps) => void;
   removeLink?: (id: string) => void;
   reorderLinks?: (
