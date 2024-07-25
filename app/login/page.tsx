@@ -14,9 +14,7 @@ export default function Login({}: Props) {
 
   useEffect(() => {
     if (auth.currentUser) {
-      setTimeout(() => {
-        setIsAuthenticated(true); 
-      }, 500);
+      setIsAuthenticated(true);
     }
   }, []);
 

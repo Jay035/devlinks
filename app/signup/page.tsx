@@ -14,9 +14,7 @@ export default function SignUp({}: Props) {
 
   useEffect(() => {
     if (auth.currentUser) {
-      setTimeout(() => {
         setIsAuthenticated(true);
-      }, 500);
     }
   }, []);
 

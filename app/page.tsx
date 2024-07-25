@@ -63,9 +63,7 @@ export default function Home() {
 
   useEffect(() => {
     if (auth.currentUser) {
-      setTimeout(() => {
         setIsAuthenticated(true);
-      }, 500);
     }
   }, []);
 
