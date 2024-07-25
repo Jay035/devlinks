@@ -320,6 +320,7 @@ export function GlobalProvider({ children }: Props) {
   };
 
   useEffect(() => {
+    console.log("authenticating")
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoading(false)
