@@ -208,9 +208,10 @@ export function GlobalProvider({ children }: Props) {
       setProfileData((prevState: any) => ({
         ...prevState,
         links: prevState.links.map((link: LinksProps) =>
-          link.id === index ? { ...link, updatedlink } : link
+          link.id === index ? { ...link, link: updatedlink } : link
         ),
       }));
+      console.log(profileData)
     }
   };
 
@@ -301,6 +302,7 @@ export function GlobalProvider({ children }: Props) {
         setLinksSaved(false);
         // router.push("/blog");
       }, 1000);
+      console.log(`saved`);
     } catch (err: any) {
       console.log(err.message);
     }

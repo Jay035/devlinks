@@ -15,24 +15,16 @@ export default function LinkItem({ item, index }: Props) {
   const { profileData, LinkPlatforms, addLink, updateLink, removeLink } =
     useGlobalProvider();
 
-    const [link, setLink] = useState({
-      id: "1",
-      platform: {
-        icon: "/icons/github.svg",
-        name: "GitHub",
-      },
-      link: "",
-    });
+  const [link, setLink] = useState({
+    id: "1",
+    platform: {
+      icon: "/icons/github.svg",
+      name: "GitHub",
+    },
+    link: "",
+  });
   const [selectedLinkPlatform, setSelectedLinkPlatform] =
     useState<LinkPlatformProps>(item.platform);
-
-    
-
-  // const onOptionClick = (value: LinkPlatformProps) => {
-  //   setSelectedLinkPlatform(value);
-  //   addLink?.();
-  //   console.log(profileData);
-  // };
 
   const handlePlatformUpdate = (option: LinkPlatformProps) => {
     setSelectedLinkPlatform(option);
@@ -50,8 +42,8 @@ export default function LinkItem({ item, index }: Props) {
     setLink({ ...link, link: e.target.value });
     const newLink = {
       ...link,
-      link: e.target.value
-  }
+      link: e.target.value,
+    };
 
     if (item?.id) {
       updateLink?.(link, "link", item?.id);
