@@ -11,14 +11,14 @@ const LinkList = () => {
         profileData?.links.map((item, index) => (
           // <Draggable key={index} draggableId={item?.id!} index={index}>
           //   {(provided) => (
-              <div
-              key={index}
-                className=""
-                // ref={provided.innerRef}
-                // {...provided.draggableProps}
-              >
-                <LinkItem key={index} index={index} item={item} />
-              </div>
+          <div
+            key={index}
+            className=""
+            // ref={provided.innerRef}
+            // {...provided.draggableProps}
+          >
+            <LinkItem key={index} index={index} item={item} />
+          </div>
           //   )}
           // </Draggable>
         ))}

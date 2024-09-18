@@ -12,11 +12,11 @@ type Props = {
 };
 
 export default function LinkItem({ item, index }: Props) {
-  const { profileData, LinkPlatforms, addLink, updateLink, removeLink } =
-    useGlobalProvider();
+  const { LinkPlatforms, updateLink, removeLink } = useGlobalProvider();
 
+  const [isInputEmpty, setIsInputEmpty] = useState(true);
   const [link, setLink] = useState({
-    id: "1",
+    id: `${index + 1}`,
     platform: {
       icon: "/icons/github.svg",
       name: "GitHub",
@@ -29,24 +29,28 @@ export default function LinkItem({ item, index }: Props) {
   const handlePlatformUpdate = (option: LinkPlatformProps) => {
     setSelectedLinkPlatform(option);
     setLink({ ...link, platform: option });
-    const newLink = {
-      ...item,
-      platform: option,
-    };
+
     if (item?.id) {
       updateLink?.(link, "platform", item?.id);
     }
   };
 
   const handleLinkUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isInputEmpty = e.target.validity.valueMissing;
+    // console.log(isInputEmpty)
     setLink({ ...link, link: e.target.value });
-    const newLink = {
-      ...link,
-      link: e.target.value,
-    };
 
     if (item?.id) {
       updateLink?.(link, "link", item?.id);
+    }
+  };
+
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
     }
   };
 
@@ -61,7 +65,7 @@ export default function LinkItem({ item, index }: Props) {
             src="/icons/drag.svg"
             width="0"
             height="0"
-            className="w-fit"
+            className="w-fit cursor-pointer"
             alt="logo"
           />
           <h1 className="font-bold">Link #{index + 1}</h1>
@@ -84,15 +88,18 @@ export default function LinkItem({ item, index }: Props) {
           onOptionClick={handlePlatformUpdate}
         />
       </div>
+
       <CustomInput
+        inputName="url"
         error=""
         value={link.link}
         placeholder="https://www.github.com/benwright"
         label="Link"
         id={`${selectedLinkPlatform?.name} link`}
-        type="website"
+        type="url"
         onchange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleLinkUpdate(e);
+          isValidUrl(link.link);
         }}
         iconSrc="/icons/link.svg"
         altText="link icon"

@@ -69,7 +69,7 @@ export function Navbar() {
         ))}
       </div>
       <Link
-        href="/"
+        href="/preview"
         className="px-4 py-[0.69rem] border rounded-lg border-purple text-purple"
       >
         <Image

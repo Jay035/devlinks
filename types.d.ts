@@ -12,7 +12,8 @@ interface LinkPlatformProps {
 }
 
 interface SaveBtnProps {
-  condition: boolean;
+  condition?: boolean;
+  handleClick?: () => void
 }
 
 interface NavItemProps {
@@ -111,4 +112,14 @@ interface GlobalProps {
   linksSaved?: boolean;
   saveProfile?: () => void;
   // reducerProps: <(usersLinks: any[] | undefined, action: any) => any[]>(reducer: (usersLinks: any[] | undefined, action: any) => any[], initializerArg: any[], initializer?: undefined): [ReducerStateWithoutAction<(usersLinks: any[] | undefined, action: any) => any[]>
+}
+
+
+interface ModalProps {
+  modalHeader?: string;
+  children?: ReactElement;
+  showModal?: boolean;
+  setShowModal?: (x: boolean) => void;
+  handleClick?: (x: any) => void;
+  item?: ProductItem;
 }

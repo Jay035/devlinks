@@ -6,7 +6,7 @@ import { useState } from "react";
 type Props = {};
 
 export default function Details({}: Props) {
-  const { profileData, updateProfileData } = useGlobalProvider();
+  const { profileData, updateProfileData, saveProfile } = useGlobalProvider();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -76,7 +76,6 @@ export default function Details({}: Props) {
         altText=""
       />
 
-      <SaveBtn condition={condition} />
     </div>
   );
 }

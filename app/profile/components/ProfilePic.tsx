@@ -9,11 +9,13 @@ export default function ProfilePic({}: Props) {
     errors: { imageError },
   } = useGlobalProvider();
   return (
-    <section className="xl:grid grid-cols-2 items-center w-full text-grey p-5 bg-[#FAFAFA] rounded-xl">
+    <section className="grid sm:grid-cols-2 sm:items-center lg:items-start lg:grid-cols-1 w-full text-grey p-5 bg-[#FAFAFA] rounded-xl">
       <h2 className="w-fit">Profile picture</h2>
-      <div className="flex flex-col xl:flex-row xl:items-center gap-6 mt-4 xl:mt-0">
+      <div className="flex flex-col sm:flex-row sm:items-center lg:flex-col lg:items-start gap-6 mt-4 xl:mt-0">
         <div className="">
-          {imageError && <span className="text-[#FF3939] text-center"> {imageError}</span>}
+          {imageError && (
+            <span className="text-[#FF3939] text-center"> {imageError}</span>
+          )}
           <UploadImage />
         </div>
         <p className="xl:w-[127px] text-xs">
